@@ -1,0 +1,22 @@
+# Trained models and preprocessing objects written by the training cells.
+# They are rebuilt by running the notebooks.
+models/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDEs and editors
+.idea/
+*.iml
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db
