@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite it as below."
+type: software
+title: "SurvivalML: machine learning for survival analysis of oral carcinoma"
+abstract: >-
+  Code of a bachelor's thesis that compares Random Survival Forest, XGBoost
+  Survival Embeddings and DeepSurv on the TCGA-HNSC cohort, with a
+  leakage-free preprocessing and evaluation protocol and explanations based
+  on permutation importance and SHAP.
+authors:
+  - family-names: Amato
+    given-names: Nicolò
+repository-code: "https://github.com/NicoloAmato/SurvivalML"
+license: MIT
+date-released: "2026-03-13"
+keywords:
+  - survival analysis
+  - machine learning
+  - explainable AI
+  - head and neck cancer
+  - TCGA-HNSC
+references:
+  - type: thesis
+    title: >-
+      Machine Learning per la Survival Analysis del Carcinoma Orale: Oltre il
+      Bias Temporale e la Scatola Nera
+    authors:
+      - family-names: Amato
+        given-names: Nicolò
+    thesis-type: "Bachelor's thesis"
+    institution:
+      name: "Università degli Studi di Salerno"
+    department: "Dipartimento di Informatica"
+    notes: "Academic year 2024/2025"
