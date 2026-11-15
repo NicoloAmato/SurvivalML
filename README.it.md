@@ -25,7 +25,7 @@ Laurea in Informatica, Università degli Studi di Salerno, anno accademico 2024/
 
 ```mermaid
 flowchart LR
-    A["oral_cancer_dataset.xlsx"] --> P["data/dataPipeline.ipynb"]
+    A["oral_cancer_dataset.xlsx"] --> P["thesis/data/dataPipeline.ipynb"]
     B["follow_up.xlsx"] --> P
     C["fattori_di_rischio.xlsx"] --> P
     P --> D[("dataset.csv<br/>527 pazienti, 35 colonne")]
@@ -67,9 +67,9 @@ Curva di sopravvivenza media predetta per i pazienti di test sopra (rosso) e sot
 mediana del rischio predetto.
 
 <p align="center">
-  <img src="RandomSurvivalForest/results/rsf_survival_curves.png" width="32%" alt="Random Survival Forest: curve di sopravvivenza dei gruppi ad alto e basso rischio">
-  <img src="XGBoostSurvival/results/xgbse_survival_curves.png" width="32%" alt="XGBSE: curve di sopravvivenza dei gruppi ad alto e basso rischio">
-  <img src="DeepSurv/results/deepsurv_survival_curves.png" width="32%" alt="DeepSurv: curve di sopravvivenza dei gruppi ad alto e basso rischio">
+  <img src="thesis/RandomSurvivalForest/results/rsf_survival_curves.png" width="32%" alt="Random Survival Forest: curve di sopravvivenza dei gruppi ad alto e basso rischio">
+  <img src="thesis/XGBoostSurvival/results/xgbse_survival_curves.png" width="32%" alt="XGBSE: curve di sopravvivenza dei gruppi ad alto e basso rischio">
+  <img src="thesis/DeepSurv/results/deepsurv_survival_curves.png" width="32%" alt="DeepSurv: curve di sopravvivenza dei gruppi ad alto e basso rischio">
 </p>
 
 ### Spiegazioni
@@ -79,8 +79,8 @@ destra). L'intento curativo del trattamento, l'età e lo stadio linfonodale dete
 parte del rischio predetto.
 
 <p align="center">
-  <img src="RandomSurvivalForest/results/rsf_permutation_importance.png" width="49%" alt="Random Survival Forest: permutation feature importance">
-  <img src="RandomSurvivalForest/results/rsf_shap_summary.png" width="43%" alt="Random Survival Forest: SHAP summary plot">
+  <img src="thesis/RandomSurvivalForest/results/rsf_permutation_importance.png" width="49%" alt="Random Survival Forest: permutation feature importance">
+  <img src="thesis/RandomSurvivalForest/results/rsf_shap_summary.png" width="43%" alt="Random Survival Forest: SHAP summary plot">
 </p>
 
 Ogni cartella `results/` contiene anche i grafici SHAP waterfall del paziente di test a rischio
@@ -105,9 +105,9 @@ principale contributo metodologico della tesi.
 
 | Notebook | Modello | Preprocessing | Addestramento |
 |---|---|---|---|
-| [`randomSurvivalForest.ipynb`](RandomSurvivalForest/randomSurvivalForest.ipynb) | Random Survival Forest (scikit-survival) | Imputazione MICE, quattro feature derivate, 30 feature selezionate con la permutation importance | Ricerca casuale, 40 configurazioni, CV a 5 fold |
-| [`XGBoostSurvivalEmbeddings.ipynb`](XGBoostSurvival/XGBoostSurvivalEmbeddings.ipynb) | `XGBSEDebiasedBCE` (xgbse su XGBoost) | Nessuno: tutte le 33 feature, valori mancanti gestiti nativamente | Di fatto i default della libreria, vedi [Limitazioni note](#limitazioni-note) |
-| [`deepSurv.ipynb`](DeepSurv/deepSurv.ipynb) | DeepSurv: MLP di Cox con strati 64-32-16 (pycox su PyTorch) | Indicatori di dato mancante, filtro delle feature sparse, imputazione MICE, standardizzazione | Dropout, weight decay, early stopping; valutazione su cinque run |
+| [`randomSurvivalForest.ipynb`](thesis/RandomSurvivalForest/randomSurvivalForest.ipynb) | Random Survival Forest (scikit-survival) | Imputazione MICE, quattro feature derivate, 30 feature selezionate con la permutation importance | Ricerca casuale, 40 configurazioni, CV a 5 fold |
+| [`XGBoostSurvivalEmbeddings.ipynb`](thesis/XGBoostSurvival/XGBoostSurvivalEmbeddings.ipynb) | `XGBSEDebiasedBCE` (xgbse su XGBoost) | Nessuno: tutte le 33 feature, valori mancanti gestiti nativamente | Di fatto i default della libreria, vedi [Limitazioni note](#limitazioni-note) |
+| [`deepSurv.ipynb`](thesis/DeepSurv/deepSurv.ipynb) | DeepSurv: MLP di Cox con strati 64-32-16 (pycox su PyTorch) | Indicatori di dato mancante, filtro delle feature sparse, imputazione MICE, standardizzazione | Dropout, weight decay, early stopping; valutazione su cinque run |
 
 Ogni notebook ha due parti, ciascuna introdotta da una descrizione: una cella di training, che
 salva in `models/` il modello addestrato e i suoi oggetti di preprocessing, e una cella di
@@ -117,23 +117,18 @@ valutazione, che stampa le metriche e scrive i grafici in `results/`.
 
 ```
 SurvivalML/
-├── data/
-│   ├── dataPipeline.ipynb               tabelle grezze -> dataset.csv
-│   ├── oral_cancer_dataset.xlsx         dati clinici, stadiazione e trattamenti
-│   ├── follow_up.xlsx                   record di follow-up
-│   ├── fattori_di_rischio.xlsx          esposizione a tabacco e alcol
-│   ├── dataset.csv                      tabella pronta per i modelli, 527 x 35
-│   └── README.md                        origine dei dati e dizionario (in inglese)
-├── RandomSurvivalForest/
-│   ├── randomSurvivalForest.ipynb
-│   └── results/                         grafici
-├── XGBoostSurvival/
-│   ├── XGBoostSurvivalEmbeddings.ipynb
-│   └── results/
-├── DeepSurv/
-│   ├── deepSurv.ipynb
-│   └── results/
-├── requirements.txt
+├── thesis/                              il progetto di tesi, com'è stato consegnato
+│   ├── data/
+│   │   ├── dataPipeline.ipynb           tabelle grezze -> dataset.csv
+│   │   ├── oral_cancer_dataset.xlsx     dati clinici, stadiazione e trattamenti
+│   │   ├── follow_up.xlsx               record di follow-up
+│   │   ├── fattori_di_rischio.xlsx      esposizione a tabacco e alcol
+│   │   ├── dataset.csv                  tabella pronta per i modelli, 527 x 35
+│   │   └── README.md                    origine dei dati e dizionario (in inglese)
+│   ├── RandomSurvivalForest/            notebook e grafici
+│   ├── XGBoostSurvival/                 notebook e grafici
+│   ├── DeepSurv/                        notebook e grafici
+│   └── requirements.txt
 ├── README.md                            versione inglese
 ├── README.it.md                         questo file
 ├── CITATION.cff
@@ -147,13 +142,13 @@ git clone https://github.com/NicoloAmato/SurvivalML.git
 cd SurvivalML
 python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
-pip install -r requirements.txt jupyter
+pip install -r thesis/requirements.txt jupyter
 jupyter notebook
 ```
 
 Poi:
 
-1. Facoltativamente, esegui `data/dataPipeline.ipynb` per rigenerare `data/dataset.csv`. Il file
+1. Facoltativamente, esegui `thesis/data/dataPipeline.ipynb` per rigenerare `thesis/data/dataset.csv`. Il file
    è già presente nel repository.
 2. Apri il notebook di un modello ed esegui la cella di training, poi quella di valutazione.
 
@@ -166,7 +161,7 @@ nell'esecuzione salvata ha richiesto circa 17 minuti.
 ## Riproducibilità
 
 I semi casuali sono fissati: 25 per Random Survival Forest e XGBSE, 26 per lo split di DeepSurv e
-da 26 a 30 per i suoi cinque run di valutazione. `requirements.txt` elenca le dipendenze senza
+da 26 a 30 per i suoi cinque run di valutazione. `thesis/requirements.txt` elenca le dipendenze senza
 versioni fissate, quindi sono possibili piccole differenze numeriche tra un ambiente e l'altro.
 
 Una riesecuzione di novembre 2026 in un ambiente Python 3.10 pulito (numpy 1.26.4, pandas 2.3.3,
@@ -207,7 +202,7 @@ run.
 I dati provengono da TCGA-HNSC (The Cancer Genome Atlas, Head and Neck Squamous Cell Carcinoma),
 distribuito dal National Cancer Institute statunitense tramite il
 [GDC Data Portal](https://portal.gdc.cancer.gov/projects/TCGA-HNSC). In
-[`data/README.md`](data/README.md) (in inglese) trovi l'origine dei dati, i passaggi di
+[`thesis/data/README.md`](thesis/data/README.md) (in inglese) trovi l'origine dei dati, i passaggi di
 preprocessing e il significato di ogni colonna.
 
 > The results shown here are in whole or part based upon data generated by the TCGA Research
