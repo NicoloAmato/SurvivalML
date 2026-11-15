@@ -1,0 +1,36 @@
+{
+  "model": "rsf",
+  "label": "Random Survival Forest",
+  "feature_set": "baseline",
+  "n_features": 26,
+  "metrics": {
+    "c_index": 0.6613756613756614,
+    "ibs": 0.20159353853767173,
+    "auc_1y": 0.7057921632179799,
+    "auc_3y": 0.736634959706292,
+    "auc_5y": 0.7062470476597722,
+    "auc_mean": 0.7162247235280148
+  },
+  "std_over_runs": {
+    "c_index": 0.0,
+    "ibs": 0.0,
+    "auc_1y": 0.0,
+    "auc_3y": 0.0,
+    "auc_5y": 0.0,
+    "auc_mean": 0.0
+  },
+  "info": {
+    "cv_c_index": 0.654935172478247,
+    "cv_c_index_std": 0.03373658068058619,
+    "train_c_index": 0.7210437627001041,
+    "best_params": {
+      "n_estimators": 300,
+      "min_samples_split": 50,
+      "min_samples_leaf": 15,
+      "max_features": "log2",
+      "max_depth": 5
+    },
+    "n_features": 29
+  },
+  "seconds": 54.0
+}

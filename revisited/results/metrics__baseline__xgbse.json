@@ -1,0 +1,48 @@
+{
+  "model": "xgbse",
+  "label": "XGBSE (tuned)",
+  "feature_set": "baseline",
+  "n_features": 26,
+  "metrics": {
+    "c_index": 0.6071428571428571,
+    "ibs": 0.25010242201648314,
+    "auc_1y": 0.6660749530084992,
+    "auc_3y": 0.6448752332138669,
+    "auc_5y": 0.6157102363426818,
+    "auc_mean": 0.642220140855016
+  },
+  "std_over_runs": {
+    "c_index": 0.0,
+    "ibs": 0.0,
+    "auc_1y": 0.0,
+    "auc_3y": 0.0,
+    "auc_5y": 0.0,
+    "auc_mean": 0.0
+  },
+  "info": {
+    "cv_c_index": 0.6357441926151153,
+    "best_params": {
+      "objective": "survival:cox",
+      "eval_metric": "cox-nloglik",
+      "tree_method": "hist",
+      "n_estimators": 400,
+      "learning_rate": 0.005,
+      "max_depth": 4,
+      "min_child_weight": 5,
+      "gamma": 0.5,
+      "subsample": 0.7,
+      "colsample_bynode": 0.3,
+      "reg_alpha": 10,
+      "reg_lambda": 50,
+      "seed": 25
+    },
+    "distinct_cv_scores": 128,
+    "cv_score_range": [
+      0.4871733966745843,
+      0.6357441926151153
+    ],
+    "failed_configs": 0,
+    "train_c_index": 0.7949893443029191
+  },
+  "seconds": 44.7
+}

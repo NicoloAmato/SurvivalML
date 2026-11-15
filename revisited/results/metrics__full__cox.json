@@ -1,0 +1,28 @@
+{
+  "model": "cox",
+  "label": "Cox PH (ridge)",
+  "feature_set": "full",
+  "n_features": 33,
+  "metrics": {
+    "c_index": 0.707010582010582,
+    "ibs": 0.18870479085241904,
+    "auc_1y": 0.7465187040875927,
+    "auc_3y": 0.748608122826057,
+    "auc_5y": 0.7279243222682408,
+    "auc_mean": 0.7410170497272969
+  },
+  "std_over_runs": {
+    "c_index": 0.0,
+    "ibs": 0.0,
+    "auc_1y": 0.0,
+    "auc_3y": 0.0,
+    "auc_5y": 0.0,
+    "auc_mean": 0.0
+  },
+  "info": {
+    "cv_c_index": 0.7000547834060404,
+    "alpha": 100.0,
+    "train_c_index": 0.7402240174456064
+  },
+  "seconds": 10.8
+}

@@ -1,0 +1,26 @@
+{
+  "model": "xgbse_default",
+  "label": "XGBSE (library defaults)",
+  "feature_set": "baseline",
+  "n_features": 26,
+  "metrics": {
+    "c_index": 0.6403218694885362,
+    "ibs": 0.228331680895363,
+    "auc_1y": 0.675052494289008,
+    "auc_3y": 0.6655137783431051,
+    "auc_5y": 0.6186111136913233,
+    "auc_mean": 0.6530591287744788
+  },
+  "std_over_runs": {
+    "c_index": 0.0,
+    "ibs": 0.0,
+    "auc_1y": 0.0,
+    "auc_3y": 0.0,
+    "auc_5y": 0.0,
+    "auc_mean": 0.0
+  },
+  "info": {
+    "train_c_index": 0.9119542052832433
+  },
+  "seconds": 0.1
+}

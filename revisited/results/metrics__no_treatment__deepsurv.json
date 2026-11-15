@@ -1,0 +1,38 @@
+{
+  "model": "deepsurv",
+  "label": "DeepSurv (5 runs)",
+  "feature_set": "no_treatment",
+  "n_features": 29,
+  "metrics": {
+    "c_index": 0.6721781305114639,
+    "ibs": 0.20306007283277894,
+    "auc_1y": 0.7141741542228404,
+    "auc_3y": 0.699368475706574,
+    "auc_5y": 0.6548463497476986,
+    "auc_mean": 0.6894629932257044
+  },
+  "std_over_runs": {
+    "c_index": 0.016695569500341935,
+    "ibs": 0.006693980480740022,
+    "auc_1y": 0.025325924396034778,
+    "auc_3y": 0.029131967962779372,
+    "auc_5y": 0.029294587334718968,
+    "auc_mean": 0.023097491671163137
+  },
+  "info": {
+    "n_runs": 5,
+    "epochs": [
+      113,
+      84,
+      132,
+      85,
+      148
+    ],
+    "n_features": 30,
+    "dropped_sparse": [
+      "Final_M_enc",
+      "demographic.race_ASIAN"
+    ]
+  },
+  "seconds": 59.8
+}
