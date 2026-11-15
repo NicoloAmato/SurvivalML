@@ -1,0 +1,15 @@
+# Versions used for the results in this folder (Python 3.10).
+numpy==1.26.4
+pandas==2.3.3
+scikit-learn==1.7.2
+scikit-survival==0.25.0
+xgboost==2.1.4
+xgbse==0.3.3
+torch==2.14.1
+torchtuples==0.2.2
+pycox==0.3.0
+joblib==1.6.0
+matplotlib==3.10.9
+nbformat==5.11.1
+nbconvert==7.17.2
+ipykernel==7.3.0
