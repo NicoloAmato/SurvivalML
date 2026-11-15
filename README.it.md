@@ -12,6 +12,10 @@ Questo repository contiene il codice della tesi di laurea triennale *Machine Lea
 Survival Analysis del Carcinoma Orale: Oltre il Bias Temporale e la Scatola Nera*, Corso di
 Laurea in Informatica, Università degli Studi di Salerno, anno accademico 2024/2025.
 
+Il progetto di tesi è in [`thesis/`](thesis). Un'analisi successiva sugli stessi dati, con la
+ricerca XGBSE corretta, intervalli di confidenza e un confronto tra insiemi di feature, è in
+[`revisited/`](revisited/README.md).
+
 ## Cosa fa
 
 - Costruisce un dataset con una riga per paziente a partire dalle tabelle cliniche grezze di
@@ -86,6 +90,26 @@ parte del rischio predetto.
 Ogni cartella `results/` contiene anche i grafici SHAP waterfall del paziente di test a rischio
 più alto e di quello a rischio più basso per quel modello.
 
+## Analisi successiva
+
+A circa un anno dalla tesi, i punti aperti elencati tra le
+[Limitazioni note](#limitazioni-note) sono stati affrontati in
+[`revisited/`](revisited/README.md) (in inglese), senza toccare il codice della tesi. Ora tutti i
+modelli condividono lo stesso split, XGBSE è ottimizzato con una ricerca che funziona, un modello
+di Cox fa da riferimento e ogni metrica ha un intervallo bootstrap.
+
+<p align="center">
+  <img src="revisited/results/figures/c_index_intervals.png" width="75%" alt="C-index con intervallo bootstrap al 95% per ogni modello e insieme di feature">
+</p>
+
+- La Random Survival Forest resta in testa con un C-index di 0.735 (intervallo al 95%
+  0.665–0.807), ma su 132 pazienti di test nessuna differenza tra modelli è statisticamente
+  accertata.
+- Con una ricerca funzionante, XGBSE non supera i default della libreria: 0.676 contro 0.707.
+- Una regressione di Cox con penalità ridge arriva a 0.707, alla pari con XGBSE di default.
+- Senza le variabili di trattamento e intento la foresta scende a 0.661: una parte consistente
+  del segnale viene dall'intento terapeutico registrato.
+
 ## Come viene evitato il leakage
 
 Evitare risultati ottimistici dovuti a informazioni che arrivano dal futuro, o dal test set, è il
@@ -129,6 +153,14 @@ SurvivalML/
 │   ├── XGBoostSurvival/                 notebook e grafici
 │   ├── DeepSurv/                        notebook e grafici
 │   └── requirements.txt
+├── revisited/                           analisi successiva sugli stessi dati
+│   ├── survml/                          codice condiviso: dati, modelli, metriche
+│   ├── run_experiments.py               addestra ogni modello su ogni insieme di feature
+│   ├── run_bootstrap.py                 intervalli di confidenza e confronti appaiati
+│   ├── summary.ipynb                    tabelle e grafici
+│   ├── results/                         metriche, predizioni e grafici
+│   ├── requirements.txt                 versioni fissate
+│   └── README.md                        (in inglese)
 ├── README.md                            versione inglese
 ├── README.it.md                         questo file
 ├── CITATION.cff
@@ -152,9 +184,10 @@ Poi:
    è già presente nel repository.
 2. Apri il notebook di un modello ed esegui la cella di training, poi quella di valutazione.
 
-I percorsi sono relativi alla cartella di ciascun notebook, che è la directory di lavoro usata
-da Jupyter per impostazione predefinita. Le celle di training scrivono in una cartella `models/`
-nella radice del repository, che non è versionata. Tutto gira in pochi secondi o pochi minuti
+Questi passaggi riproducono la tesi; [`revisited/README.md`](revisited/README.md) spiega come
+eseguire l'analisi successiva. I percorsi sono relativi alla cartella di ciascun notebook, che è la directory di lavoro usata
+da Jupyter per impostazione predefinita. Le celle di training scrivono in `thesis/models/`,
+che non è versionata. Tutto gira in pochi secondi o pochi minuti
 sulla CPU di un portatile, tranne il calcolo SHAP della Random Survival Forest, che
 nell'esecuzione salvata ha richiesto circa 17 minuti.
 
@@ -188,9 +221,11 @@ run.
   `survival:aft`, parametri di default di XGBoost, 10 round di boosting) al posto della
   configurazione `survival:cox` descritta nel notebook. Le metriche XGBSE riportate sono
   riproducibili, ma appartengono a quel modello di default. Il codice è rimasto com'era per la
-  tesi; il notebook contiene una nota con i dettagli.
+  tesi; il notebook contiene una nota con i dettagli. La ricerca è rifatta correttamente in
+  [`revisited/`](revisited/README.md).
 - **Il test set non è lo stesso per tutti i modelli.** DeepSurv è stato suddiviso con un seme
-  diverso, e il confronto non è sostenuto da intervalli di confidenza né da test appaiati.
+  diverso, e il confronto non è sostenuto da intervalli di confidenza né da test appaiati. Entrambi i
+  punti sono affrontati in [`revisited/`](revisited/README.md).
 - **Una sola coorte.** Manca una validazione esterna. I modelli sono predittivi, non causali: le
   variabili di trattamento in particolare possono riflettere confounding by indication e immortal
   time bias.

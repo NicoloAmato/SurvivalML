@@ -13,6 +13,9 @@ Analysis del Carcinoma Orale: Oltre il Bias Temporale e la Scatola Nera* ("Machi
 Survival Analysis of Oral Carcinoma: Beyond Temporal Bias and the Black Box"), Computer Science,
 University of Salerno, academic year 2024/2025.
 
+The thesis project is in [`thesis/`](thesis). A later follow-up on the same data, with a corrected
+XGBSE search, confidence intervals and a feature ablation, is in [`revisited/`](revisited/README.md).
+
 ## What it does
 
 - Builds a one-row-per-patient dataset from the raw TCGA-HNSC clinical tables, using only
@@ -85,6 +88,24 @@ Curative treatment intent, age and nodal stage drive most of the predicted risk.
 Each `results/` folder also holds SHAP waterfall plots for the highest-risk and the lowest-risk
 test patient of that model.
 
+## Revisited analysis
+
+About a year after the thesis, the open points listed under
+[Known limitations](#known-limitations) were taken up in [`revisited/`](revisited/README.md),
+without touching the thesis code. All models now share one split, XGBSE is tuned with a search
+that works, a Cox model is added as reference and every metric has a bootstrap interval.
+
+<p align="center">
+  <img src="revisited/results/figures/c_index_intervals.png" width="75%" alt="C-index with 95% bootstrap interval for every model and feature set">
+</p>
+
+- The Random Survival Forest stays on top with a C-index of 0.735 (95% interval 0.665–0.807), but
+  on 132 test patients no difference between models is statistically established.
+- With a working search, XGBSE does not beat its library defaults: 0.676 against 0.707.
+- A ridge-penalised Cox regression reaches 0.707, level with the default XGBSE.
+- Without treatment and intent variables the forest drops to 0.661: a large part of the signal
+  comes from the recorded treatment intent.
+
 ## How leakage is prevented
 
 Avoiding optimistic results caused by information leaking from the future, or from the test set,
@@ -127,6 +148,14 @@ SurvivalML/
 │   ├── XGBoostSurvival/                 notebook and figures
 │   ├── DeepSurv/                        notebook and figures
 │   └── requirements.txt
+├── revisited/                           follow-up analysis on the same data
+│   ├── survml/                          shared code: data, models, metrics
+│   ├── run_experiments.py               trains every model on every feature set
+│   ├── run_bootstrap.py                 confidence intervals and paired comparisons
+│   ├── summary.ipynb                    tables and figures
+│   ├── results/                         metrics, predictions and figures
+│   ├── requirements.txt                 pinned versions
+│   └── README.md
 ├── README.md                            this file
 ├── README.it.md                         Italian version
 ├── CITATION.cff
@@ -150,8 +179,9 @@ Then:
    in the repository.
 2. Open a model notebook and run the training cell, then the evaluation cell.
 
-Paths are relative to the folder of each notebook, which is the working directory Jupyter uses
-by default. The training cells write to a `models/` folder at the repository root; it is not
+These steps reproduce the thesis; [`revisited/README.md`](revisited/README.md) explains how to run
+the follow-up. Paths are relative to the folder of each notebook, which is the working directory Jupyter uses
+by default. The training cells write to `thesis/models/`; it is not
 versioned. Everything runs in seconds or a few minutes on a laptop CPU, except the SHAP step of
 the Random Survival Forest, which took about 17 minutes in the saved run.
 
@@ -183,9 +213,11 @@ executions; the evaluation cell seeds each of its five runs.
   with the library defaults (`survival:aft` objective, default XGBoost parameters, 10 boosting
   rounds) instead of the `survival:cox` setup described in the notebook. The reported XGBSE
   metrics are reproducible, but they belong to that default model. The code is left as it was
-  for the thesis; the notebook carries a note with the details.
+  for the thesis; the notebook carries a note with the details. The search is redone properly in
+  [`revisited/`](revisited/README.md).
 - **Not the same test set for all models.** DeepSurv was split with a different seed, and no
-  confidence intervals or paired tests back the comparison.
+  confidence intervals or paired tests back the comparison. Both points are addressed in
+  [`revisited/`](revisited/README.md).
 - **One cohort.** There is no external validation. The models are predictive, not causal:
   treatment variables in particular may reflect confounding by indication and immortal time
   bias.
